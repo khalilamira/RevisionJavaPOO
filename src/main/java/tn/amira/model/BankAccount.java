@@ -82,4 +82,9 @@ public abstract class BankAccount {
     }
 
     public abstract String getType();
+
+    public final void print(){
+        System.out.println("----------BANK----------");
+
+    }
 }
