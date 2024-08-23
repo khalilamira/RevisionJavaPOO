@@ -21,6 +21,12 @@ public class Main {
         } else {
             System.out.println("les deux compte n'ont pas le meme etat");
         }
+        account3.setCurrency("lol");
+        if(account2.hashCode() == account3.hashCode()) {
+            System.out.println("les deux comptes ont les méme état ");
+        } else {
+            System.out.println("les deux compte n'ont pas le meme etat");
+        }
         System.out.println("========================");
 
         System.out.println(account2.getAccountId());
