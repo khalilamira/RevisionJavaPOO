@@ -4,7 +4,7 @@ package tn.amira.model;
 import java.util.Objects;
 import java.util.UUID;
 
-public class BankAccount {
+public abstract class BankAccount {
     private String accountId;
     private double balance;
     private String currency;
@@ -80,4 +80,6 @@ public class BankAccount {
                 Objects.hashCode(this.balance)+
                 Objects.hashCode(this.status);
     }
+
+    public abstract String getType();
 }

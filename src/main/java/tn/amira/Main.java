@@ -1,16 +1,17 @@
 package tn.amira;
 
 import tn.amira.model.BankAccount;
+import tn.amira.model.CurrentAccount;
 
 public class Main {
     public static void main(String[] args) {
-        BankAccount account1 = new BankAccount();
+        BankAccount account1 = new CurrentAccount(43,"effe",2333);
         account1.setCurrency("jad");
         account1.setBalance(455);
         printAccount(account1);
-        BankAccount account2 = new BankAccount(12345, "kha");
+        BankAccount account2 = new CurrentAccount(43,"effe",2333);
         printAccount(account2);
-        BankAccount account3 = new BankAccount(12345, "kha");
+        BankAccount account3 = new CurrentAccount(43,"effe",2333);
         printAccount(account3);
         account3.setAccountId(account2.getAccountId());
         System.out.println("..................");
