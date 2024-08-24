@@ -1,3 +1,4 @@
+import tn.amira.Exceptions.AccountNotFoundException;
 import tn.amira.business.BankAccountService;
 import tn.amira.business.BankAccountServiceImpl;
 import tn.amira.model.BankAccount;
@@ -5,7 +6,7 @@ import tn.amira.model.CurrentAccount;
 import tn.amira.model.SavingAccount;
 
 public class Application {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws AccountNotFoundException {
         BankAccountService bankAccountService = new BankAccountServiceImpl();
         bankAccountService.addBankAccount(new CurrentAccount(43,"effe",2333));
         bankAccountService.addBankAccount(new SavingAccount(45,"FRR",456));
@@ -18,9 +19,10 @@ public class Application {
         try{
             BankAccount accountbyid = bankAccountService.getBankAccountById("C4");
             System.out.println(accountbyid);
-        } catch (RuntimeException e) {
+        } catch (AccountNotFoundException e) {
             System.out.println(e.getMessage());
         }
+
         System.out.println("suite prrogramme");
     }
 }

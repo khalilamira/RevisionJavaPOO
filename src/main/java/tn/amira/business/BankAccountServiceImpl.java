@@ -1,5 +1,6 @@
 package tn.amira.business;
 
+import tn.amira.Exceptions.AccountNotFoundException;
 import tn.amira.model.BankAccount;
 
 import java.util.ArrayList;
@@ -21,13 +22,13 @@ public class BankAccountServiceImpl implements BankAccountService {
     }
 
     @Override
-    public BankAccount getBankAccountById(String id){
+    public BankAccount getBankAccountById(String id) throws AccountNotFoundException{
         for (BankAccount bankAccount : bankAccountList) {
             if (bankAccount.getAccountId().equals(id)){
                 return bankAccount;
             }
         }
-        throw new RuntimeException("Bank account not found");
+        throw new AccountNotFoundException("Bank account not found");
     }
 
     @Override
