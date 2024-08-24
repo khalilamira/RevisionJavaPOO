@@ -21,7 +21,7 @@ public class BankAccountServiceImpl implements BankAccountService {
     }
 
     @Override
-    public BankAccount getBankAccountById(int id){
+    public BankAccount getBankAccountById(String id){
         for (BankAccount bankAccount : bankAccountList) {
             if (bankAccount.getAccountId().equals(id)){
                 return bankAccount;
