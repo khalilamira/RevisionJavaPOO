@@ -35,8 +35,7 @@ public class BankAccountServiceImpl implements BankAccountService {
                 .stream()
                 .filter(account -> account.getAccountId().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new AccountNotFoundException("Bank account not found"));
-
+                .orElseThrow(() -> new AccountNotFoundException(String.format("Bank account %s not found",id)));
         //Imperative approche
         /*for (BankAccount bankAccount : bankAccountList) {
             if (bankAccount.getAccountId().equals(id)) {

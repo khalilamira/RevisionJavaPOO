@@ -6,7 +6,7 @@ import tn.amira.business.BankAccountServiceImpl;
 import tn.amira.utilis.DataTransformationUtils;
 
 public class Application {
-    public static void main(String[] args) throws AccountNotFoundException {
+    public static void main(String[] args){
         BankAccountService bankAccountService = new BankAccountServiceImpl();
        /* bankAccountService.addBankAccount(new CurrentAccount(43,"effe",2333));
         bankAccountService.addBankAccount(new SavingAccount(45,"FRR",456));
@@ -32,8 +32,13 @@ public class Application {
                 .forEach(System.out::println);
         bankAccountService.getBankAccounts().stream().findFirst().ifPresent(account -> account.setAccountId("JAD"));
 
-        System.out.println(bankAccountService.getBankAccountById("JAD"));
 
+        try {
+            System.out.println(DataTransformationUtils.toJson(bankAccountService.getBankAccountById("JAr")));
+        } catch (AccountNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
 
+        System.out.println("+++++++++++");
     }
 }
