@@ -25,10 +25,14 @@ public class Application {
         }*/
         System.out.println("les comptes avec random");
         bankAccountService.addRandomData(20);
+
         bankAccountService.getBankAccounts()
                 .stream()
                 .map(DataTransformationUtils::toJson)
                 .forEach(System.out::println);
+        bankAccountService.getBankAccounts().stream().findFirst().ifPresent(account -> account.setAccountId("JAD"));
+
+        System.out.println(bankAccountService.getBankAccountById("JAD"));
 
 
     }

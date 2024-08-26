@@ -8,6 +8,7 @@ import tn.amira.model.SavingAccount;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 public class BankAccountServiceImpl implements BankAccountService {
@@ -27,12 +28,22 @@ public class BankAccountServiceImpl implements BankAccountService {
 
     @Override
     public BankAccount getBankAccountById(String id) throws AccountNotFoundException{
-        for (BankAccount bankAccount : bankAccountList) {
-            if (bankAccount.getAccountId().equals(id)){
+
+
+        //declarative approche
+        return bankAccountList
+                .stream()
+                .filter(account -> account.getAccountId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new AccountNotFoundException("Bank account not found"));
+
+        //Imperative approche
+        /*for (BankAccount bankAccount : bankAccountList) {
+            if (bankAccount.getAccountId().equals(id)) {
                 return bankAccount;
             }
         }
-        throw new AccountNotFoundException("Bank account not found");
+        throw new AccountNotFoundException("Bank account not found");*/
     }
 
     @Override
