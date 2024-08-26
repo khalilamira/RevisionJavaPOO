@@ -1,14 +1,14 @@
+package tn.amira;
+
 import tn.amira.Exceptions.AccountNotFoundException;
 import tn.amira.business.BankAccountService;
 import tn.amira.business.BankAccountServiceImpl;
-import tn.amira.model.BankAccount;
-import tn.amira.model.CurrentAccount;
-import tn.amira.model.SavingAccount;
+import tn.amira.utilis.DataTransformationUtils;
 
 public class Application {
     public static void main(String[] args) throws AccountNotFoundException {
         BankAccountService bankAccountService = new BankAccountServiceImpl();
-        bankAccountService.addBankAccount(new CurrentAccount(43,"effe",2333));
+       /* bankAccountService.addBankAccount(new CurrentAccount(43,"effe",2333));
         bankAccountService.addBankAccount(new SavingAccount(45,"FRR",456));
         BankAccount  account3 = new CurrentAccount(43,"effe",2333);
         account3.setAccountId("C1");
@@ -21,8 +21,15 @@ public class Application {
             System.out.println(accountbyid);
         } catch (AccountNotFoundException e) {
             System.out.println(e.getMessage());
-        }
+            //e.printStackTrace();
+        }*/
+        System.out.println("les comptes avec random");
+        bankAccountService.addRandomData(20);
+        bankAccountService.getBankAccounts()
+                .stream()
+                .map(DataTransformationUtils::toJson)
+                .forEach(System.out::println);
 
-        System.out.println("suite prrogramme");
+
     }
 }

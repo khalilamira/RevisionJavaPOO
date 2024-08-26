@@ -1,3 +1,5 @@
+package tn.amira;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import tn.amira.model.BankAccount;
 

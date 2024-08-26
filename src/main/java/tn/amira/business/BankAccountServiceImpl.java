@@ -1,10 +1,14 @@
 package tn.amira.business;
 
 import tn.amira.Exceptions.AccountNotFoundException;
+import tn.amira.model.AccountStatus;
 import tn.amira.model.BankAccount;
+import tn.amira.model.CurrentAccount;
+import tn.amira.model.SavingAccount;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class BankAccountServiceImpl implements BankAccountService {
 
@@ -33,7 +37,19 @@ public class BankAccountServiceImpl implements BankAccountService {
 
     @Override
     public void addRandomData(int size) {
-
+        AccountStatus[] values = AccountStatus.values();
+        Random random = new Random();
+        for (int i = 0; i < size; i++) {
+            BankAccount bankAccount;
+            if (Math.random() > 0.5) {
+                bankAccount = new CurrentAccount(Math.random()*100000,Math.random()>0.5?"MAD":"USD", Math.random()*5000);
+                bankAccount.setStatus(values[random.nextInt(values.length)]);
+            }else {
+                bankAccount = new SavingAccount(Math.random()*100000,Math.random()>0.5?"MAD":"USD", 3 + Math.random()*7);
+                bankAccount.setStatus(values[random.nextInt(values.length)]);
+            }
+            bankAccountList.add(bankAccount);
+        }
     }
 
     @Override
