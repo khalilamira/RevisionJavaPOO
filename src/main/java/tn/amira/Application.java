@@ -3,7 +3,10 @@ package tn.amira;
 import tn.amira.Exceptions.AccountNotFoundException;
 import tn.amira.business.BankAccountService;
 import tn.amira.business.BankAccountServiceImpl;
+import tn.amira.model.BankAccount;
 import tn.amira.utilis.DataTransformationUtils;
+
+import java.util.Optional;
 
 public class Application {
     public static void main(String[] args){
@@ -31,13 +34,15 @@ public class Application {
                 .map(DataTransformationUtils::toJson)
                 .forEach(System.out::println);
         bankAccountService.getBankAccounts().stream().findFirst().ifPresent(account -> account.setAccountId("JAD"));
+        Optional<BankAccount> any = bankAccountService.getBankAccounts().stream().findAny();
 
 
         try {
-            System.out.println(DataTransformationUtils.toJson(bankAccountService.getBankAccountById("JAr")));
+            System.out.println(DataTransformationUtils.toJson(bankAccountService.getBankAccountById("JAD")));
         } catch (AccountNotFoundException e) {
             System.out.println(e.getMessage());
         }
+
 
         System.out.println("+++++++++++");
     }

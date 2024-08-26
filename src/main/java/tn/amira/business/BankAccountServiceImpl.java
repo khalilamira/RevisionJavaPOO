@@ -1,6 +1,7 @@
 package tn.amira.business;
 
 import tn.amira.Exceptions.AccountNotFoundException;
+import tn.amira.Exceptions.BalanceNotSufficientException;
 import tn.amira.model.AccountStatus;
 import tn.amira.model.BankAccount;
 import tn.amira.model.CurrentAccount;
@@ -31,18 +32,18 @@ public class BankAccountServiceImpl implements BankAccountService {
 
 
         //declarative approche
-        return bankAccountList
+        /*return bankAccountList
                 .stream()
                 .filter(account -> account.getAccountId().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new AccountNotFoundException(String.format("Bank account %s not found",id)));
+                .orElseThrow(() -> new AccountNotFoundException(String.format("Bank account %s not found",id)));*/
         //Imperative approche
-        /*for (BankAccount bankAccount : bankAccountList) {
+        for (BankAccount bankAccount : bankAccountList) {
             if (bankAccount.getAccountId().equals(id)) {
                 return bankAccount;
             }
         }
-        throw new AccountNotFoundException("Bank account not found");*/
+        throw new AccountNotFoundException("Bank account not found");
     }
 
     @Override
@@ -63,17 +64,21 @@ public class BankAccountServiceImpl implements BankAccountService {
     }
 
     @Override
-    public void credit(String accountId, double amount) {
-
+    public void credit(String accountId, double amount) throws AccountNotFoundException {
+        BankAccount bankAccount = getBankAccountById(accountId);
+        bankAccount.setBalance(bankAccount.getBalance()+amount);
     }
 
     @Override
-    public void debit(String accountId, double amount) {
-
+    public void debit(String accountId, double amount) throws AccountNotFoundException,BalanceNotSufficientException {
+        BankAccount bankAccount = getBankAccountById(accountId);
+        if (bankAccount.getBalance()-amount<0) throw new BalanceNotSufficientException("Balance not sufficient");
+        bankAccount.setBalance(bankAccount.getBalance()+amount);
     }
 
     @Override
-    public void transfer(String accountSource, String accountDestination, double amount) {
-
+    public void transfer(String accountSource, String accountDestination, double amount) throws AccountNotFoundException, BalanceNotSufficientException {
+        debit(accountSource,amount);
+        credit(accountDestination,amount);
     }
 }
